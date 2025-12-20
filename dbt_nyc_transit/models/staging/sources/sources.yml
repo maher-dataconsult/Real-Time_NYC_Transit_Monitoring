@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: mta_raw
+    database: NYC_TRANSIT
+    schema: RAW_DATA
+    description: 'Raw GTFS data loaded from MTA'
+    tables:
+      - name: AGENCY
+      - name: CALENDAR
+      - name: CALENDAR_DATES
+      - name: ROUTES
+      - name: SHAPES
+      - name: STOPS
+      - name: STOP_TIMES
+      - name: TRANSFERS
+      - name: TRIPS

@@ -1,0 +1,43 @@
+name: 'dbt_nyc_transit'
+version: '1.0.0'
+config-version: 2
+
+profile: 'nyc_transit'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  nyc_transit:
+    staging:
+      +materialized: view
+      +schema: staging
+      +tags: ['staging']
+
+    intermediate:
+      +materialized: view
+      +schema: intermediate
+      +tags: ['intermediate']
+
+    marts:
+      +materialized: table
+      +schema: marts
+      +tags: ['marts']
+
+seeds:
+  nyc_transit:
+    +schema: seeds
+
+snapshots:
+  nyc_transit:
+    +target_schema: snapshots
+

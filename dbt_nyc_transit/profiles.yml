@@ -1,0 +1,13 @@
+nyc_transit:
+  outputs:
+    dev:
+      account: FYHTBNY-UZ80283
+      database: NYC_TRANSIT
+      password: '@|EHSmK13DELAW'
+      schema: STAGING
+      role: ACCOUNTADMIN
+      threads: 1
+      type: snowflake
+      user: KILLSPORT13
+      warehouse: COMPUTE_WH
+  target: dev

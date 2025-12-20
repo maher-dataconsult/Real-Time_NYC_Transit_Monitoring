@@ -1,0 +1,117 @@
+version: 2
+
+models:
+  - name: stg_agency
+    description: "Transit agencies metadata"
+    columns:
+      - name: agency_id
+        tests: [unique, not_null]
+
+  - name: stg_calendar
+    description: "Service schedule and active days"
+    columns:
+      - name: service_id
+        tests: [unique, not_null]
+      - name: start_date
+        tests: [not_null]
+
+  - name: stg_routes
+    description: "Transit routes information"
+    columns:
+      - name: route_id
+        tests: [unique, not_null]
+      - name: agency_id
+        tests:
+          - relationships:
+              to: ref('stg_agency')
+              field: agency_id
+
+  - name: stg_trips
+    description: "Trips data linked to routes"
+    columns:
+      - name: trip_id
+        tests: [unique, not_null]
+      - name: route_id
+        tests:
+          - relationships:
+              to: ref('stg_routes')
+              field: route_id
+
+  - name: stg_stops
+    description: "Stops locations"
+    columns:
+      - name: stop_id
+        tests: [unique, not_null]
+
+  - name: stg_stop_times
+    description: "Stop times for each trip"
+    # التست ده (Composite Key) مكانه هنا، قبل الأعمدة
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - trip_id
+            - stop_sequence
+
+    columns:
+      - name: trip_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_trips')
+              field: trip_id
+
+      - name: stop_sequence
+        tests:
+          - not_null
+
+      - name: arrival_time_seconds
+        tests:
+          - not_null
+
+      - name: departure_time_seconds
+        tests:
+          - not_null
+
+      - name: stop_duration_seconds
+        tests:
+          - not_null
+  - name: stg_shapes
+    description: "Geospatial data used to draw route lines on maps"
+    columns:
+      - name: shape_id
+        tests:
+          - not_null
+      - name: shape_pt_sequence
+        tests:
+          - not_null
+
+  - name: stg_calendar_dates
+    description: "Exceptions to the regular service schedule."
+    columns:
+      - name: service_id
+        tests:
+          - not_null
+      - name: date
+        tests:
+          - not_null
+
+  - name: stg_transfers
+    description: "Rules for making connections at transfer points between routes."
+    columns:
+      - name: from_stop_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_stops')
+              field: stop_id
+      - name: to_stop_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_stops')
+              field: stop_id
+      - name: transfer_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1, 2, 3] # GTFS standard values
