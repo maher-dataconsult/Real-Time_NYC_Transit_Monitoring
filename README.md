@@ -163,10 +163,8 @@ The pipeline follows a Lambda architecture combining batch and streaming process
 
 ## 📊 Dashboards
 
-- **Static Metrics**: Total routes, stops, trips per route, longest routes
-- **Real-Time Metrics**: Active data points, average delay, alert count
-- **Time-Series Analysis**: Delays over time by route
-- **Comparative Analysis**: Planned vs actual service delivery
+![image](_batching_dash.png)
+![image](_streaming_dash.png)
 
 ## 👥 Team
 
