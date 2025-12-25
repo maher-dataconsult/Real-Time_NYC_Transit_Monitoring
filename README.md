@@ -85,8 +85,6 @@ The pipeline follows a Lambda architecture combining batch and streaming process
 
 ## 🔄 Workflow
 
-![image](_workflow_chart.png)
-
 ### 1. Data Ingestion
 - **Batch Pipeline**: Ingest 9 CSV files containing static GTFS data
 - **Streaming Pipeline**: Consume real-time Protobuf-encoded API data via Kafka
