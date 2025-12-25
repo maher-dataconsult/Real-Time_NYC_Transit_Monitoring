@@ -144,6 +144,12 @@ The pipeline follows a Lambda architecture combining batch and streaming process
 - Route L: 11,164 seconds total delay (needs attention)
 - Delay hotspots: L29S, L28S, L03N stations
 
+
+## 📊 Dashboards
+
+![image](_batching_dash.png)
+![image](_streaming_dash.png)
+
 ## 💡 Recommendations
 
 ### For Transit Operations
@@ -159,11 +165,6 @@ The pipeline follows a Lambda architecture combining batch and streaming process
 - Analyze peak hour patterns at top-volume stations
 - Study relationship between trip volume and delay frequency
 - Identify seasonal trends in service disruptions
-
-## 📊 Dashboards
-
-![image](_batching_dash.png)
-![image](_streaming_dash.png)
 
 ## 👥 Team
 
